@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">E-Commerce</string>
+    <string name="welcomeToUse">Welcome to</string>
+    <string name="app_name_long">Apple Store\n</string>
+    <string name="account">Account</string>
+    <string name="accountDescription">*The account should be an email.</string>
+    <string name="passcode">Passcode</string>
+    <string name="passcodeDescription">*The number of password characters should not be less than 8 and not more than 16.</string>
+    <string name="login">Login</string>
+    <string name="singup">Sign Up</string>
+</resources>

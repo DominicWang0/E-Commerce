@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/black"
+    android:orientation="horizontal"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <ImageView
+        android:id="@+id/title_iv_back"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_backward"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:src="@drawable/applelogo" />
+
+    <LinearLayout
+        android:id="@+id/title_ll_bag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/iv_bag"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_bag" />
+
+    </LinearLayout>
+</RelativeLayout>
