@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ShoppingDetailActivity">
+    tools:context=".activity.ShoppingDetailActivity">
 
     <include
         android:id="@+id/detail_title"

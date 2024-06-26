@@ -1,4 +1,4 @@
-package com.example.e_commerce;
+package com.example.e_commerce.activity;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.e_commerce.R;
 import com.example.e_commerce.dbHelper.BagHelper;
 import com.example.e_commerce.dbHelper.GoodsHelper;
 import com.example.e_commerce.info.BagInfo;
@@ -26,10 +27,10 @@ import java.util.ArrayList;
 public class ShoppingBagActivity extends AppCompatActivity {
     ArrayList<BagInfo> bagList = new ArrayList<>();
     ArrayList<GoodsInfo> goodsList = new ArrayList<>();
-    GridLayout bagGridLayout;
+    GridLayout gl_bag;
     ImageView iv_back;
     TextView tv_count, tv_total;
-    Button btn_cleanall, btn_checkout;
+    Button btn_cleanAll, btn_checkout;
     int total = 0;
 
     @Override
@@ -42,10 +43,10 @@ public class ShoppingBagActivity extends AppCompatActivity {
 
     private void init() {
 
-        bagGridLayout = findViewById(R.id.bag_gl_list);
+        gl_bag = findViewById(R.id.bag_gl_list);
         tv_count = findViewById(R.id.bag_tv_count);
         tv_total = findViewById(R.id.bag_tv_total);
-        btn_cleanall = findViewById(R.id.bag_btn_cleanall);
+        btn_cleanAll = findViewById(R.id.bag_btn_cleanall);
         btn_checkout = findViewById(R.id.bag_btn_checkout);
 
 
@@ -58,14 +59,14 @@ public class ShoppingBagActivity extends AppCompatActivity {
             btn_checkout.setBackground(getDrawable(R.color.gray));
         }
 
-        btn_cleanall.setOnClickListener(new View.OnClickListener() {
+        btn_cleanAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = new BagHelper(ShoppingBagActivity.this).getWritableDatabase();
                 db.execSQL("delete from bag");
                 db.close();
                 bagList.clear();
-                bagGridLayout.removeAllViews();
+                gl_bag.removeAllViews();
                 total = 0;
                 showData();
                 Toast.makeText(ShoppingBagActivity.this, "Clean All Successful", Toast.LENGTH_SHORT).show();
@@ -198,7 +199,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
             params.setGravity(Gravity.CENTER);
 
             // 添加到GridLayout中
-            bagGridLayout.addView(bagItemView, params);
+            gl_bag.addView(bagItemView, params);
         }
 
         tv_count.setText(String.valueOf(bagList.size()));

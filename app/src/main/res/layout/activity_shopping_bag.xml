@@ -1,6 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activity.SignInActivity">
 
     <!--Title-->
     <LinearLayout
@@ -19,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bag_title"
         android:layout_margin="20dp"
-        android:text="Shopping Bag"
+        android:text="@string/shopping_bag"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold" />
@@ -28,11 +31,10 @@
         android:id="@+id/bag_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/bag_tv_title"
         android:layout_above="@id/bottom_bar"
+        android:layout_below="@id/bag_tv_title"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1">
+        android:layout_marginRight="20dp">
 
         <GridLayout
             android:id="@+id/bag_gl_list"
@@ -55,6 +57,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -66,13 +69,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Count:" />
+                    android:text="@string/count" />
 
                 <TextView
                     android:id="@+id/bag_tv_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="n" />
+                    android:text="@string/n" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,13 +87,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total:" />
+                    android:text="@string/total" />
 
                 <TextView
                     android:id="@+id/bag_tv_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="n" />
+                    android:text="@string/n" />
             </LinearLayout>
         </LinearLayout>
 
@@ -107,7 +110,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/gray"
-                android:text="Clean All" />
+                android:text="@string/clean_all" />
 
             <Button
                 android:id="@+id/bag_btn_checkout"
@@ -116,7 +119,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/blue"
-                android:text="Checkout"
+                android:text="@string/checkout"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>

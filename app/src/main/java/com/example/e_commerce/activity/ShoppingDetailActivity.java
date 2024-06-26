@@ -1,4 +1,4 @@
-package com.example.e_commerce;
+package com.example.e_commerce.activity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.e_commerce.R;
 import com.example.e_commerce.dbHelper.BagHelper;
 import com.example.e_commerce.info.GoodsInfo;
 

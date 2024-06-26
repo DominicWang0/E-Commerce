@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".activity.SignInActivity">
 
 
     <TextView
@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:textColor="@color/black"
-        android:layout_marginTop="100dp"
-        android:text="@string/welcomeToUse"
+        android:layout_marginTop="120dp"
+        android:text="@string/welcome_to_use"
         android:textSize="20sp" />
 
     <TextView
@@ -28,7 +28,8 @@
 
 
     <EditText
-        android:id="@+id/login_et_account"
+        android:layout_marginTop="80dp"
+        android:id="@+id/sign_in_et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
@@ -37,14 +38,14 @@
         android:minHeight="48dp" />
 
     <TextView
-        android:id="@+id/login_tv_accountDescription"
+        android:id="@+id/sign_in_tv_accountDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/accountDescription"
+        android:text="@string/account_description"
         android:visibility="gone" />
 
     <EditText
-        android:id="@+id/login_et_passcode"
+        android:id="@+id/sign_in_et_passcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="password"
@@ -53,10 +54,10 @@
         android:minHeight="48dp" />
 
     <TextView
-        android:id="@+id/login_tv_passcodeDescription"
+        android:id="@+id/sign_in_tv_passcodeDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/passcodeDescription"
+        android:text="@string/passcode_description"
         android:visibility="gone" />
 
     <Space
@@ -64,11 +65,17 @@
         android:layout_height="50dp" />
 
     <Button
-        android:id="@+id/login_btn_login"
+        android:id="@+id/sign_in_btn_sign_in"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/login" />
+        android:text="@string/sign_in" />
+    <TextView
+        android:id="@+id/sign_in_tv_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/sign_up" />
 
 
 </LinearLayout>

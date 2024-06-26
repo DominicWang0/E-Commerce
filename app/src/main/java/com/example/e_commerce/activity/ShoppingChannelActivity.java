@@ -1,4 +1,4 @@
-package com.example.e_commerce;
+package com.example.e_commerce.activity;
 
 import static com.example.e_commerce.utils.CopyDBUtils.copyDBFile;
 
@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.e_commerce.R;
 import com.example.e_commerce.dbHelper.GoodsHelper;
 import com.example.e_commerce.info.GoodsInfo;
 

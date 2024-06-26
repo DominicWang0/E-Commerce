@@ -13,7 +13,10 @@
         android:theme="@style/Theme.ECommerce"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,18 +25,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShoppingDetailActivity"
+            android:name=".activity.ShoppingDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ShoppingChannelActivity"
-            android:exported="true">
-
-        </activity>
+            android:name=".activity.ShoppingChannelActivity"
+            android:exported="true"></activity>
         <activity
-            android:name=".ShoppingBagActivity"
-            android:exported="true">
-
-        </activity>
+            android:name=".activity.ShoppingBagActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

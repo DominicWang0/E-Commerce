@@ -1,11 +1,21 @@
 <resources>
-    <string name="app_name">E-Commerce</string>
-    <string name="welcomeToUse">Welcome to</string>
-    <string name="app_name_long">Apple Store\n</string>
+    <string name="app_name">Apple Store</string>
+    <string name="welcome_to_use">Welcome to</string>
+    <string name="app_name_long">Apple Store</string>
     <string name="account">Account</string>
-    <string name="accountDescription">*The account should be an email.</string>
+    <string name="account_description">*The account should be an email.</string>
     <string name="passcode">Passcode</string>
-    <string name="passcodeDescription">*The number of password characters should not be less than 8 and not more than 16.</string>
-    <string name="login">Login</string>
-    <string name="singup">Sign Up</string>
+    <string name="passcode_description">*The number of password characters should not be less than 8 and not more than 16.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sing_up">Sign Up</string>
+    <string name="shopping_bag">Shopping Bag</string>
+    <string name="count">Count:</string>
+    <string name="n">n</string>
+    <string name="total">Total:</string>
+    <string name="clean_all">Clean All</string>
+    <string name="checkout">Checkout</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="rePasscode">Repasscode</string>
+    <string name="re_passcode_description">*Password Inconsistency</string>
+    <string name="back_to_sign_in">Back to Sign In</string>
 </resources>
