@@ -46,9 +46,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String account;
         Intent getData = getIntent();
         account = getData.getStringExtra("account");
-        if (account.equals("")) {
-
-        } else {
+        assert account != null;
+        if (!account.isEmpty()) {
             et_account.setText(account);
             et_passcode.setText(getData.getStringExtra("passcode"));
         }
@@ -116,10 +115,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     boolean isEmpty(EditText temp) {
-        if (temp.getText().length() == 0 || temp.getText().toString().trim() == "") {
-            return true;
-        }
-        return false;
+        return temp.getText().length() == 0 || temp.getText().toString().trim().isEmpty();
     }
 
 }

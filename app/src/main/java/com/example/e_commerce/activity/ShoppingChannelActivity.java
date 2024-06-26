@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,7 +35,9 @@ public class ShoppingChannelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            copyDBFile("ECommerce.db", this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                copyDBFile("ECommerce.db", this);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +50,7 @@ public class ShoppingChannelActivity extends AppCompatActivity {
         initChannel();
     }
 
+    @SuppressLint("SetTextI18n")
     void initChannel() {
         ImageView hero;
         TextView name, price;
@@ -54,7 +58,7 @@ public class ShoppingChannelActivity extends AppCompatActivity {
 
 
         for (GoodsInfo goodsList : goodsList) {
-            View channelView = LayoutInflater.from(this).inflate(R.layout.item_goods, null, false);
+            @SuppressLint("InflateParams") View channelView = LayoutInflater.from(this).inflate(R.layout.item_goods, null, false);
 
             // 获取控件
             hero = channelView.findViewById(R.id.item_iv_thumb);
@@ -88,16 +92,13 @@ public class ShoppingChannelActivity extends AppCompatActivity {
                     break;
             }
             name.setText(goodsList.name);
-            price.setText("$" + String.valueOf(goodsList.price));
+            price.setText("$" + goodsList.price);
 
-            channelView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("ShoppingChannel", "点击了商品：" + goodsList.name);
-                    Intent intent = new Intent(ShoppingChannelActivity.this, ShoppingDetailActivity.class);
-                    intent.putExtra("goods", goodsList);
-                    startActivity(intent);
-                }
+            channelView.setOnClickListener(v -> {
+                Log.i("ShoppingChannel", "点击了商品：" + goodsList.name);
+                Intent intent = new Intent(ShoppingChannelActivity.this, ShoppingDetailActivity.class);
+                intent.putExtra("goods", goodsList);
+                startActivity(intent);
             });
 
 
@@ -108,18 +109,19 @@ public class ShoppingChannelActivity extends AppCompatActivity {
 
     @SuppressLint("Range")
     private void getGoodsData() {
+        //noinspection resource
         GoodsHelper goodsHelper = new GoodsHelper(this);
         SQLiteDatabase goodsDB = goodsHelper.getReadableDatabase();
 
         // 获取商品数据
-        Cursor goodsData = goodsDB.query("goods", new String[]{"id", "name", "price", "description", "pic_path"}, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor goodsData = goodsDB.query("goods", new String[]{"id", "name", "price", "description", "pic_path"}, null, null, null, null, null);
         Log.i("ShoppingChannel", "获取商品数：：" + goodsData.getCount());
 
         // 遍历购物袋数据
         while (goodsData.moveToNext()) {
-            Log.i("ShoppingChannel", "商品id：" + String.valueOf(goodsData.getInt(goodsData.getColumnIndex("id"))));
+            Log.i("ShoppingChannel", "商品id：" + goodsData.getInt(goodsData.getColumnIndex("id")));
             Log.i("ShoppingChannel", "商品name：" + goodsData.getString(goodsData.getColumnIndex("name")));
-            Log.i("ShoppingChannel", "商品price：" + String.valueOf(goodsData.getFloat(goodsData.getColumnIndex("price"))));
+            Log.i("ShoppingChannel", "商品price：" + goodsData.getFloat(goodsData.getColumnIndex("price")));
             Log.i("ShoppingChannel", "商品description：" + goodsData.getString(goodsData.getColumnIndex("description")));
             Log.i("ShoppingChannel", "商品pic_path：" + goodsData.getString(goodsData.getColumnIndex("pic_path")));
 

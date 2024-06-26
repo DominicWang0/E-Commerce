@@ -31,7 +31,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
     ImageView iv_back;
     TextView tv_count, tv_total;
     Button btn_cleanAll, btn_checkout;
-    int total = 0;
+    double total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void init() {
 
         gl_bag = findViewById(R.id.bag_gl_list);
@@ -59,31 +60,24 @@ public class ShoppingBagActivity extends AppCompatActivity {
             btn_checkout.setBackground(getDrawable(R.color.gray));
         }
 
-        btn_cleanAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SQLiteDatabase db = new BagHelper(ShoppingBagActivity.this).getWritableDatabase();
-                db.execSQL("delete from bag");
-                db.close();
-                bagList.clear();
-                gl_bag.removeAllViews();
-                total = 0;
-                showData();
-                Toast.makeText(ShoppingBagActivity.this, "Clean All Successful", Toast.LENGTH_SHORT).show();
-                btn_checkout.setBackground(getDrawable(R.color.gray));
-            }
+        btn_cleanAll.setOnClickListener(v -> {
+            //noinspection resource
+            SQLiteDatabase db = new BagHelper(ShoppingBagActivity.this).getWritableDatabase();
+            db.execSQL(getString(R.string.delete_from_bag));
+            db.close();
+            bagList.clear();
+            gl_bag.removeAllViews();
+            total = 0;
+            showData();
+            Toast.makeText(ShoppingBagActivity.this, "Clean All Successful", Toast.LENGTH_SHORT).show();
+            btn_checkout.setBackground(getDrawable(R.color.gray));
         });
 
-        btn_checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (total == 0) {
-                    Toast.makeText(ShoppingBagActivity.this, "Please select some goods", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Toast.makeText(ShoppingBagActivity.this, "Checkout Scuessful", Toast.LENGTH_SHORT).show();
-
-                }
+        btn_checkout.setOnClickListener(view -> {
+            if (total == 0) {
+                Toast.makeText(ShoppingBagActivity.this, "Please select some goods", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ShoppingBagActivity.this, "Checkout Scuessful", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -92,29 +86,25 @@ public class ShoppingBagActivity extends AppCompatActivity {
         View title = findViewById(R.id.bag_title);
         iv_back = title.findViewById(R.id.title_iv_back);
         iv_back.setVisibility(View.VISIBLE);
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        iv_back.setOnClickListener(v -> finish());
     }
 
 
     @SuppressLint("Range")
     private void getGoodsData() {
+        //noinspection resource
         GoodsHelper goodsHelper = new GoodsHelper(this);
         SQLiteDatabase goodsDB = goodsHelper.getReadableDatabase();
 
         // 获取商品数据
-        Cursor goodsData = goodsDB.query("goods", new String[]{"id", "name", "price", "description", "pic_path"}, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor goodsData = goodsDB.query("goods", new String[]{"id", "name", "price", "description", "pic_path"}, null, null, null, null, null);
         Log.i("ShoppingBag", "获取商品数：：" + goodsData.getCount());
 
         // 遍历购物袋数据
         while (goodsData.moveToNext()) {
-            Log.i("ShoppingBag", "商品id：" + String.valueOf(goodsData.getInt(goodsData.getColumnIndex("id"))));
+            Log.i("ShoppingBag", "商品id：" + goodsData.getInt(goodsData.getColumnIndex("id")));
             Log.i("ShoppingBag", "商品name：" + goodsData.getString(goodsData.getColumnIndex("name")));
-            Log.i("ShoppingBag", "商品price：" + String.valueOf(goodsData.getFloat(goodsData.getColumnIndex("price"))));
+            Log.i("ShoppingBag", "商品price：" + goodsData.getFloat(goodsData.getColumnIndex("price")));
             Log.i("ShoppingBag", "商品description：" + goodsData.getString(goodsData.getColumnIndex("description")));
             Log.i("ShoppingBag", "商品pic_path：" + goodsData.getString(goodsData.getColumnIndex("pic_path")));
 
@@ -126,11 +116,12 @@ public class ShoppingBagActivity extends AppCompatActivity {
 
     @SuppressLint("Range")
     private void getBagData() {
+        //noinspection resource
         BagHelper bagHelper = new BagHelper(this);
         SQLiteDatabase bagDB = bagHelper.getReadableDatabase();
 
         // 获取购物袋数据
-        Cursor bagData = bagDB.query("bag", new String[]{"item_id"}, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor bagData = bagDB.query("bag", new String[]{"item_id"}, null, null, null, null, null);
 
         if (bagData.getCount() == 0) {
             Log.i("ShoppingBag", "购物袋为空");
@@ -141,7 +132,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
 
             // 遍历购物袋数据
             while (bagData.moveToNext()) {
-                Log.i("ShoppingBag", "购物袋id：" + String.valueOf(bagData.getInt(bagData.getColumnIndex("item_id"))));
+                Log.i("ShoppingBag", "购物袋id：" + bagData.getInt(bagData.getColumnIndex("item_id")));
                 // 根据bag的商品id查找商品信息
                 for (GoodsInfo goodsInfo : goodsList) {
                     if (goodsInfo.id == bagData.getInt(bagData.getColumnIndex("item_id"))) {
@@ -155,6 +146,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void showData() {
         ImageView hero;
         TextView name, price;
@@ -162,7 +154,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
         Log.i("ShoppingBag", "bagList.size(): " + bagList.size());
 
         for (BagInfo bagList : bagList) {
-            View bagItemView = LayoutInflater.from(this).inflate(R.layout.item_bag, null, false);
+            @SuppressLint("InflateParams") View bagItemView = LayoutInflater.from(this).inflate(R.layout.item_bag, null, false);
             Log.i("ShoppingBag", "1");
 
             // 创建一个控件
@@ -188,8 +180,8 @@ public class ShoppingBagActivity extends AppCompatActivity {
                     break;
             }
             name.setText(bagList.goods.name);
-            price.setText("$" + String.valueOf(bagList.goods.price));
-            total += bagList.goods.price;
+            price.setText("$" + bagList.goods.price);
+            total += (int) bagList.goods.price;
 
             // 创建并设置布局参数
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
@@ -203,7 +195,7 @@ public class ShoppingBagActivity extends AppCompatActivity {
         }
 
         tv_count.setText(String.valueOf(bagList.size()));
-        tv_total.setText("$" + String.valueOf(total));
+        tv_total.setText("$" + total);
 
     }
 

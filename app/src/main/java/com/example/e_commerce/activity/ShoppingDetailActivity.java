@@ -34,7 +34,7 @@ public class ShoppingDetailActivity extends AppCompatActivity {
         initView();
     }
 
-    @SuppressLint("WrongViewCast")
+    @SuppressLint({"WrongViewCast", "SetTextI18n"})
     private void initView() {
         iv_hero = findViewById(R.id.detail_iv_pic);
         tv_name = findViewById(R.id.detail_tv_name);
@@ -45,24 +45,15 @@ public class ShoppingDetailActivity extends AppCompatActivity {
         View title = findViewById(R.id.detail_title);
         iv_back = title.findViewById(R.id.title_iv_back);
         iv_back.setVisibility(View.VISIBLE);
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        iv_back.setOnClickListener(v -> finish());
 
         ll_bag = title.findViewById(R.id.title_ll_bag);
         ll_bag.setVisibility(View.VISIBLE);
-        ll_bag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShoppingDetailActivity.this, ShoppingBagActivity.class));
-            }
-        });
+        ll_bag.setOnClickListener(v -> startActivity(new Intent(ShoppingDetailActivity.this, ShoppingBagActivity.class)));
 
         // 获取商品信息
         goodsInfo = (GoodsInfo) getIntent().getSerializableExtra("goods");
+        assert goodsInfo != null;
         Log.i("Detail", goodsInfo.name);
 
         switch (goodsInfo.id) {
@@ -83,7 +74,7 @@ public class ShoppingDetailActivity extends AppCompatActivity {
                 break;
         }
         tv_name.setText("Buy " + goodsInfo.name);
-        tv_price.setText("$" + String.valueOf(goodsInfo.price));
+        tv_price.setText("$" + goodsInfo.price);
         tv_description.setText(goodsInfo.description);
 
         // 设置按钮功能

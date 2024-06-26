@@ -4,7 +4,6 @@ import static com.example.e_commerce.utils.SPSave.SPGetUserInfo;
 import static com.example.e_commerce.utils.dataValidUtils.isEmailValid;
 import static com.example.e_commerce.utils.dataValidUtils.isEmpty;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.e_commerce.R;
 import com.example.e_commerce.utils.dataValidUtils;
+
+import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,14 +55,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.sign_in_btn_sign_in) {
             //登录
             //账号格式合法
-            if (isAccountValid(et_account.getText().toString().trim())) {
-
-            } else return;
+            if (!isAccountValid(et_account.getText().toString().trim())) {
+                return;
+            }
 
             //密码格式合法
-            if (isPasscodeValid(et_passcode.getText().toString().trim())) {
-
-            } else return;
+            if (!isPasscodeValid(et_passcode.getText().toString().trim())) {
+                return;
+            }
 
             //验证账号密码匹配
             if (isVerifiedPassed(et_account.getText().toString().trim(), et_passcode.getText().toString().trim())) {
@@ -81,7 +82,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private boolean isPasscodeValid(String passcode) {
-        if (passcode.length() == 0 || passcode.equals("")) {
+        if (passcode.isEmpty()) {
             Toast.makeText(this, "Passcode is Empty", Toast.LENGTH_SHORT).show();
             tv_passcodeDescription.setTextColor(Color.parseColor("#000000"));
             tv_passcodeDescription.setVisibility(View.GONE);
@@ -126,16 +127,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean isVerifiedPassed(String account, String passcode) {
         String truePasscode = SPGetUserInfo(this, account);
-        if (truePasscode == "not found") {
+        if (Objects.equals(truePasscode, "not found")) {
             //账号不存在
-            AlertDialog nonAccount = new AlertDialog.Builder(SignInActivity.this).setTitle("账号不存在").setIcon(R.drawable.applelogo).setMessage("是否新建账户？").setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent toSignUp = new Intent(SignInActivity.this, SignUpActivity.class);
-                    toSignUp.putExtra("account", account);
-                    toSignUp.putExtra("passcode", passcode);
-                    startActivity(toSignUp);
-                }
+            AlertDialog nonAccount = new AlertDialog.Builder(SignInActivity.this).setTitle("Account is Not Found").setIcon(R.drawable.applelogo).setMessage("Create a new account?").setPositiveButton("Continue", (dialogInterface, i) -> {
+                Intent toSignUp = new Intent(SignInActivity.this, SignUpActivity.class);
+                toSignUp.putExtra("account", account);
+                toSignUp.putExtra("passcode", passcode);
+                startActivity(toSignUp);
             }).setNegativeButton("Cancel", null).create();
             nonAccount.show();
             return false;
